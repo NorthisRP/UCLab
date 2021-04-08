@@ -1,11 +1,21 @@
-import React, { Component } from "react";
+import React, { Component, useState, useEffect } from "react";
+import BlogFeed from "../Components/BlogFeed";
 
-export default class Blog extends Component {
-  render() {
+export default function Blog() {
+  const [initialData, setInitialData] = useState([{}])
+
+    useEffect(()=>{
+      fetch('/api').then(
+        response => response.json()
+      ).then(data => setInitialData(data))
+    }, []);
+
     return (
       <div>
-        <h1>blog</h1>
+        <BlogFeed />
+        <h1>{initialData.status}</h1>
       </div>
     );
-  }
+  
 }
+
