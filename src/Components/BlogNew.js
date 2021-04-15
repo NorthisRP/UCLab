@@ -18,7 +18,7 @@ export default class Blog_New extends Component {
           <div className="description">
             <p>{this.props.description}</p>
           </div>
-          <Button>Read more</Button>
+          <Button><a href={this.props.pdf}>Read more</a></Button>
         </Container>
       </div>
     );

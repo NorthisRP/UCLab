@@ -1,17 +1,28 @@
-import React, { Component } from "react";
+import { React, useState, useEffect } from "react";
 import BlogNew from "./BlogNew";
 
-export default class Blog_Feed extends Component {
-  render() {
-    return (
-      <div>
+export default function BlogFeed() {
+  const [articles, setArticles] = useState([{}]);
+
+  useEffect(() => {
+    fetch("/api")
+      .then((response) => response.json())
+      .then((data) => setArticles(data));
+  }, []);
+
+  return (
+    <div>
+      {articles.map((article, index) => (
         <BlogNew
-          header="Lorem ipsum dolor sit amet consectetur adipisicing elit. Culpa, non!"
-          date="May 21, 2020"
-          category="Without category"
-          image="https://www.setaswall.com/wp-content/uploads/2018/07/Basketball-Wallpaper-04-1280x720-768x432.jpg"
+          key={index}
+          header={article.header}
+          date={article.date}
+          category={article.category}
+          description={article.description}
+          pdf={article.file}
+          image={article.image}
         />
-      </div>
-    );
-  }
+      ))}
+    </div>
+  );
 }

@@ -4,6 +4,7 @@ import About from "./Pages/About";
 import Landing from "./Pages/Landing";
 import Blog from "./Pages/Blog";
 import Projects from "./Pages/Projects";
+import Admin from "./Pages/Admin";
 
 function App() {
   return (
@@ -15,6 +16,7 @@ function App() {
           <Route path="/blog" component={Blog} />
           <Route path="/about" component={About} />
           <Route path="/projects" component={Projects} />
+          <Route path="/admin" component={Admin} />
         </Switch>
       </Router>
     </div>
