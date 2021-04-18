@@ -1,0 +1,5 @@
+{
+    "port": 5000,
+    "mongoUri":"mongodb+srv://roman:450299@cluster0.yym2f.mongodb.net/UCLab?retryWrites=true&w=majority",
+    "jwtSecret":"mostsecretly"
+}
