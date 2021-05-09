@@ -1,38 +1,46 @@
 import { React, useState, useEffect } from "react";
 import { Tab, Tabs, Form, Container, Row, Button } from "react-bootstrap";
-import { useHttp } from "../hooks/http.hook";
 import { useMessage } from "../hooks/message.hook";
+import axios from "axios";
 
 export default function Admin() {
   const [tab, setTab] = useState("article");
-  const [success, setSuccess] = useState(null);
+  const [success, setSuccess] = useState("");
   const message = useMessage();
-  const { loading, error, request, clearError } = useHttp();
   const [form, setForm] = useState({
     title: "",
     description: "",
     date: "",
     category: "",
+    image: {},
+    article: {},
   });
 
-  useEffect(() => {
-    message(error);
-    clearError();
-  }, [error, message, clearError]);
+  // useEffect(() => {
+  //   message(error);
+  //   clearError();
+  // }, [error, message, clearError]);
 
   useEffect(() => {
     message(success.message);
   }, [message, success]);
 
   const createHandler = async () => {
-    try {
-      const data = await request("/api/create/article", "POST", { ...form });
-      setSuccess(data);
-    } catch (e) {}
+    let formData = new FormData();
+    for (const name in form) {
+      formData.append(name, form[name]);
+    }
+    axios
+      .post("/api/admin/create_article", formData)
+      .then((res) => setSuccess(res))
+      .catch((err) => setSuccess(err));
   };
-
+  //setSuccess(res.data)
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
+  };
+  const fileHandler = (event) => {
+    setForm({ ...form, [event.target.name]: event.target.files[0] });
   };
 
   return (
@@ -48,6 +56,7 @@ export default function Admin() {
             <Form.Group controlId="formGroupTitle" className="px-5">
               <Form.Label>Заголовок статьи</Form.Label>
               <Form.Control
+                required
                 name="title"
                 placeholder="Введите заголовок"
                 onChange={changeHandler}
@@ -56,15 +65,18 @@ export default function Admin() {
             <Form.Group controlId="formGroupDescription">
               <Form.Label>Краткое описание статьи</Form.Label>
               <Form.Control
+                required
                 name="description"
-                style={{ height: "150px" }}
+                as="textarea"
                 onChange={changeHandler}
+                style={{ resize: "none", height: "200px" }}
               />
             </Form.Group>
             <Row className="justify-content-around gx-4">
               <Form.Group controlId="formGroupDate">
                 <Form.Label>Введите дату публикации статьи</Form.Label>
                 <Form.Control
+                  required
                   type="date"
                   name="date"
                   onChange={changeHandler}
@@ -77,18 +89,25 @@ export default function Admin() {
             </Row>
             <Row className="justify-content-center">
               <Form.Group>
-                <Form.File name="article" label="Выберите загружаемую статью" />
+                <Form.File
+                  required
+                  onChange={fileHandler}
+                  name="article"
+                  label="Выберите загружаемую статью"
+                  accept=".pdf"
+                />
               </Form.Group>
               <Form.Group>
-                <Form.File name="image" label="Загрузите картинку 1280х720" />
+                <Form.File
+                  required
+                  onChange={fileHandler}
+                  name="image"
+                  accept=".jpg"
+                  label="Загрузите картинку 1280х720"
+                />
               </Form.Group>
             </Row>
-            <Button
-              variant="primary"
-              type="submit"
-              onClick={createHandler}
-              disabled={loading}
-            >
+            <Button variant="primary" type="submit" onClick={createHandler}>
               Добавить
             </Button>
           </Container>

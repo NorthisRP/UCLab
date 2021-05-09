@@ -1,18 +1,29 @@
+const bodyParser = require("body-parser");
 const express = require("express");
 const config = require("config");
 const mongoose = require("mongoose");
 
 const app = express();
-
+app.use(bodyParser.json()); // Configures bodyParser to accept JSON
+app.use(
+  bodyParser.urlencoded({
+    extended: false,
+  })
+);
 //app.use(express.static(path.join(__dirname, "client", "build")));
 
 app.use(express.json({ extended: true }));
-
+app.use(
+  require("connect-livereload")({
+    ignore: [/api\/export\/getExport.*/],
+  })
+);
 app.get("/", (req, res) => {
   res.sendFile(path.join(__dirname, "build", "client", "index.html"));
 });
 
-app.use("/api/create", require("./routes/admin"));
+app.use("/api/admin", require("./routes/admin"));
+app.use("/api/feed", require("./routes/feed"));
 app.use("/api/auth", require("./routes/login"));
 
 const PORT = config.get("port") || 5000;

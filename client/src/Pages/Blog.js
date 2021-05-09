@@ -1,21 +1,19 @@
-import React, { useState, useEffect } from "react";
+import React from "react";
 import BlogFeed from "../Components/BlogFeed";
 
 export default function Blog() {
-  const [initialData, setInitialData] = useState([{}])
+  // const [initialData, setInitialData] = useState([{}])
 
-    useEffect(()=>{
-      fetch('/api').then(
-        response => response.json()
-      ).then(data => setInitialData(data))
-    }, []);
+  //   useEffect(()=>{
+  //     fetch('/api').then(
+  //       response => response.json()
+  //     ).then(data => setInitialData(data))
+  //   }, []);
 
-    return (
-      <div>
-        <BlogFeed />
-        <h1>{initialData.status}</h1>
-      </div>
-    );
-  
+  return (
+    <div>
+      <BlogFeed />
+      {/* <h1>{initialData.status}</h1> */}
+    </div>
+  );
 }
-

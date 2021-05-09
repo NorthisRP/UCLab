@@ -1,28 +1,32 @@
 import { React, useState, useEffect } from "react";
 import BlogNew from "./BlogNew";
+import axios from "axios";
 
 export default function BlogFeed() {
-  const [articles, setArticles] = useState([{}]);
+  const [articles, setArticles] = useState({});
 
   useEffect(() => {
-    fetch("/api")
-      .then((response) => response.json())
-      .then((data) => setArticles(data));
+    axios
+      .get("/api/feed/load_articles")
+      .then((res) => setArticles(res.data))
+      .catch((err) => console.log(err));
   }, []);
-
   return (
     <div>
-      {articles.map((article, index) => (
-        <BlogNew
-          key={index}
-          header={article.header}
-          date={article.date}
-          category={article.category}
-          description={article.description}
-          pdf={article.file}
-          image={article.image}
-        />
-      ))}
+      {!!articles &&
+        Object.values(articles).map((article, index) => {
+          return (
+            <BlogNew
+              key={index}
+              id={article.id}
+              title={article.title}
+              date={article.date}
+              category={article.category}
+              description={article.description}
+              image={article.image}
+            />
+          );
+        })}
     </div>
   );
 }

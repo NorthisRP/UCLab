@@ -5,6 +5,8 @@ const schema = new Schema({
   description: { type: String, required: true },
   date: { type: Date, required: true },
   category: { type: String, required: true },
+  pathImage: { type: String, required: true },
+  pathFile: { type: String, required: false },
 });
 
 module.exports = model("Article", schema);
