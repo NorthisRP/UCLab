@@ -1,5 +1,5 @@
 import React from "react";
-import BlogFeed from "../Components/BlogFeed";
+import BlogFeed from "./Blog/BlogFeed";
 
 export default function Blog() {
   // const [initialData, setInitialData] = useState([{}])

@@ -2,7 +2,7 @@ import { React } from "react";
 import { Container, Row, Button } from "react-bootstrap";
 import { Calendar3, Folder } from "react-bootstrap-icons";
 import axios from "axios";
-
+import styles from "./blog.module.scss";
 export default function Blog_New(props) {
   let readPDF = () => {
     axios
@@ -20,7 +20,7 @@ export default function Blog_New(props) {
 
   return (
     <div>
-      <Container>
+      <Container className={styles.blogNew}>
         <h3>{props.title}</h3>
         <Row className="details align-items-center">
           <Calendar3 />

@@ -74,4 +74,29 @@ router.post(
   }
 );
 
+router.post(
+  "/delete",
+  [check("title", "Некорректный заголовок").isLength({ min: 4 })],
+  async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          errors: errors.array(),
+          message: "Некорректный формат данных",
+        });
+      }
+      title = req.body;
+      const one = await Article.findOne(title);
+      if (one) {
+        one.delete();
+        return res.status(200).json({ message: "Статья успешно удалена" });
+      }
+      res.status(400).json({ message: "Статьи с таким заголовком не найдено" });
+    } catch (error) {
+      res.status(500).json({ message: `${error}` });
+    }
+  }
+);
+
 module.exports = router;
