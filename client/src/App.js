@@ -6,7 +6,7 @@ import Header from "./Components/Header";
 
 function App() {
   const { token, login, logout, userId } = useAuth();
-  const isAuthenticated = !token;
+  const isAuthenticated = !!token;
   const routes = useRoutes(isAuthenticated);
   return (
     <AuthContext.Provider
@@ -17,12 +17,10 @@ function App() {
         userId,
       }}
     >
-      <div>
-        <Router>
-          <Header />
-          {routes}
-        </Router>
-      </div>
+      <Router>
+        <Header />
+        {routes}
+      </Router>
     </AuthContext.Provider>
   );
 }

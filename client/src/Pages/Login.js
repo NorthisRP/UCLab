@@ -22,7 +22,7 @@ export default function Login() {
     axios
       .post("/api/auth/login", form)
       .then((res) => {
-        auth.login(res.token, res.userId);
+        auth.login(res.data.token, res.data.userId);
       })
       .catch((err) => {
         setError(err.response.data.message);

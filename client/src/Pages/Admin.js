@@ -1,12 +1,14 @@
-import { React, useState, useEffect } from "react";
+import { React, useState, useEffect, useContext } from "react";
 import { Tab, Tabs, Form, Container, Row, Button } from "react-bootstrap";
 import { useMessage } from "../hooks/message.hook";
+import { AuthContext } from "../context/Auth.Context";
 import axios from "axios";
 
 export default function Admin() {
   const [tab, setTab] = useState("article");
   const [success, setSuccess] = useState("");
   const message = useMessage();
+  const auth = useContext(AuthContext);
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -15,11 +17,6 @@ export default function Admin() {
     image: {},
     article: {},
   });
-
-  // useEffect(() => {
-  //   message(error);
-  //   clearError();
-  // }, [error, message, clearError]);
 
   useEffect(() => {
     message(success.message);
@@ -32,17 +29,18 @@ export default function Admin() {
     }
     axios
       .post("/api/admin/create_article", formData)
-      .then((res) => setSuccess(res))
-      .catch((err) => setSuccess(err));
+      .then((res) => setSuccess(res.data))
+      .catch((err) => setSuccess(err.response.data));
   };
-  //setSuccess(res.data)
   const changeHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.value });
   };
   const fileHandler = (event) => {
     setForm({ ...form, [event.target.name]: event.target.files[0] });
   };
-
+  const logout = () => {
+    auth.logout();
+  };
   return (
     <div>
       <Tabs
@@ -107,8 +105,11 @@ export default function Admin() {
                 />
               </Form.Group>
             </Row>
-            <Button variant="primary" type="submit" onClick={createHandler}>
+            <Button variant="primary" onClick={createHandler}>
               Добавить
+            </Button>
+            <Button variant="primary" onClick={logout}>
+              Выйти
             </Button>
           </Container>
         </Tab>
