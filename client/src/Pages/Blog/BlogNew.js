@@ -1,6 +1,6 @@
 import { React } from "react";
-import { Container, Row, Button } from "react-bootstrap";
-import { Calendar3, Folder } from "react-bootstrap-icons";
+import { Button } from "react-bootstrap";
+import { Calendar3, FolderFill } from "react-bootstrap-icons";
 import axios from "axios";
 import styles from "./blog.module.scss";
 export default function Blog_New(props) {
@@ -17,26 +17,24 @@ export default function Blog_New(props) {
       })
       .catch((err) => console.log(err));
   };
-
   return (
-    <div>
-      <Container className={styles.blogNew}>
-        <h3>{props.title}</h3>
-        <Row className="details align-items-center">
-          <Calendar3 />
-          <strong>{props.date}</strong>
-          <Folder />
-          <strong>{props.category}</strong>
-        </Row>
-        <img
-          src={`data:image;base64,${props.image}`}
-          alt="Here's some pic"
-        ></img>
-        <div className="description">
-          <p>{props.description}</p>
-        </div>
-        <Button onClick={readPDF}>Read more</Button>
-      </Container>
+    <div className={styles.blogNew}>
+      <h3>{props.title}</h3>
+      <div className={styles.blogNew__details}>
+        <Calendar3 style={{ color: "red" }} />
+        <strong>{props.date.toLocaleDateString("ru")}</strong>
+        <FolderFill style={{ color: "rgb(238, 145, 6)" }} />
+        <strong>{props.category}</strong>
+      </div>
+      <img
+        src={`data:image;base64,${props.image}`}
+        alt="Here's some pic"
+        className={styles.blogNew__img}
+      ></img>
+      <div className={styles.blogNew__description}>
+        <p>{props.description}</p>
+      </div>
+      <Button onClick={readPDF}>Читать подробнее</Button>
     </div>
   );
 }

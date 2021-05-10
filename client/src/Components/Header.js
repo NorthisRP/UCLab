@@ -36,6 +36,7 @@ const CustomLink = styled(Link)`
   color: white;
   transition: 0.2s;
   margin: 10px;
+
   :hover {
     text-decoration: none;
     color: rgb(238, 145, 6);

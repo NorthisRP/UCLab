@@ -4,7 +4,7 @@ const { check, validationResult } = require("express-validator");
 const router = Router();
 const multer = require("multer");
 path = require("path");
-// const fs = require("fs");
+const fs = require("fs");
 // const { promisify } = require("util");
 // const pipeline = promisify(require("stream").pipeline);
 
@@ -89,6 +89,8 @@ router.post(
       title = req.body;
       const one = await Article.findOne(title);
       if (one) {
+        fs.unlinkSync(one.pathFile);
+        fs.unlinkSync(one.pathImage);
         one.delete();
         return res.status(200).json({ message: "Статья успешно удалена" });
       }
