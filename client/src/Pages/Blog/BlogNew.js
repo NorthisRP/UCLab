@@ -22,12 +22,12 @@ export default function Blog_New(props) {
   };
   return (
     <div className={styles.blogNew}>
-      <h3>{t(`${props.title.toString()}`)}</h3>
+      <h3>{t(`${props.title}`)}</h3>
       <div className={styles.blogNew__details}>
         <Calendar3 style={{ color: "red" }} />
         <strong>{props.date.toLocaleDateString("ru")}</strong>
         <FolderFill style={{ color: "rgb(238, 145, 6)" }} />
-        <strong>{props.category}</strong>
+        <strong>{t(`${props.category}`)}</strong>
       </div>
       <img
         src={`data:image;base64,${props.image}`}

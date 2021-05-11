@@ -24,10 +24,10 @@ export default function Header() {
         <Navbar.Collapse id="responsive-navbar-nav">
           <Nav className="mx-auto">
             <CustomLink to="/blog">{t("Блог")}</CustomLink>
-            <CustomLink to="/projects">Проекты</CustomLink>
-            <CustomLink to="/about">О нас</CustomLink>
+            <CustomLink to="/projects">{t("Проекты")}</CustomLink>
+            <CustomLink to="/about">{t("О нас")}</CustomLink>
           </Nav>
-          <NavDropdown title="Language" id="basic-nav-dropdown">
+          <NavDropdown title={t("RU")} id="basic-nav-dropdown">
             <NavDropdown.Item onClick={() => changeLanguage("ru")}>
               RU
             </NavDropdown.Item>

@@ -5,7 +5,6 @@ import axios from "axios";
 
 export default function CreateArticle() {
   const [success, setSuccess] = useState("");
-  const [language, setLanguage] = useState({ en: "", ru: "" });
   const message = useMessage();
   const [form, setForm] = useState({
     title: "",
