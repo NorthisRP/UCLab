@@ -3,10 +3,13 @@ import { Button } from "react-bootstrap";
 import { Calendar3, FolderFill } from "react-bootstrap-icons";
 import axios from "axios";
 import styles from "./blog.module.scss";
+import { useTranslation } from "react-i18next";
 export default function Blog_New(props) {
+  const { t } = useTranslation();
+
   let readPDF = () => {
     axios
-      .get("/api/feed/load_pdf", {
+      .get("/api/load/pdf", {
         params: { id: props.id },
         responseType: "blob",
       })
@@ -19,7 +22,7 @@ export default function Blog_New(props) {
   };
   return (
     <div className={styles.blogNew}>
-      <h3>{props.title}</h3>
+      <h3>{t(`${props.title.toString()}`)}</h3>
       <div className={styles.blogNew__details}>
         <Calendar3 style={{ color: "red" }} />
         <strong>{props.date.toLocaleDateString("ru")}</strong>

@@ -23,7 +23,7 @@ app.get("/", (req, res) => {
 });
 
 app.use("/api/admin", require("./routes/admin"));
-app.use("/api/feed", require("./routes/feed"));
+app.use("/api/load", require("./routes/load"));
 app.use("/api/auth", require("./routes/login"));
 
 const PORT = config.get("port") || 5000;

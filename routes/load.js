@@ -1,9 +1,10 @@
 const Article = require("../models/Article");
+const Project = require("../models/Project");
 const { Router } = require("express");
 const router = Router();
 const fs = require("fs");
 
-router.get("/load_articles", async (req, res) => {
+router.get("/articles", async (req, res) => {
   try {
     const db_articles = await Article.find();
     let articles = [];
@@ -23,7 +24,25 @@ router.get("/load_articles", async (req, res) => {
   }
 });
 
-router.get("/load_pdf", async (req, res) => {
+router.get("/projects", async (req, res) => {
+  try {
+    const db_projects = await Project.find();
+    let projects = [];
+    db_projects.forEach((project, index) => {
+      projects[index] = {
+        id: project._id,
+        title: project.title,
+        description: project.description,
+        image: fs.readFileSync(project.pathImage, "base64"),
+      };
+    });
+    res.send(projects);
+  } catch (error) {
+    res.status(500).json({ message: `${error}` });
+  }
+});
+
+router.get("/pdf", async (req, res) => {
   try {
     const id = req.query.id;
     const one = await Article.findOne({ _id: id });

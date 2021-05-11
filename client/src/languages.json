@@ -1,0 +1,16 @@
+{
+    "en": {
+      "translation": {
+        "Блог": "Blog",
+        "Почему он используется?":"Why it used?",
+        "Что такое Lorem Ipsum?":"What is Lorem Ipsum?"
+      }
+    },
+    "ru": {
+      "translation": {
+        "Блог": "Блог",
+        "Почему он используется?":"Почему он используется?",
+        "Что такое Lorem Ipsum?":"Что такое Lorem Ipsum?"
+      }
+    }
+  }

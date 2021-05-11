@@ -5,8 +5,13 @@ import styles from "./blog.module.scss";
 export default function BlogFilter(props) {
   return (
     <div className={styles.BlogFilter}>
-      <h3>Категории</h3>
+      <input
+        placeholder="Поиск по заголовку..."
+        onChange={(event) => props.searchHandler(event.target.value)}
+      />
+
       <div className={styles.BlogFilter__categories}>
+        <h3>Категории</h3>
         <div
           name="all"
           onClick={() => {

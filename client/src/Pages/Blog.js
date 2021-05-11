@@ -11,13 +11,26 @@ export default function Blog() {
 
   useEffect(() => {
     axios
-      .get("/api/feed/load_articles")
+      .get("/api/load/articles")
       .then((res) => {
         setArticles(res.data);
         setFilteredArticles(res.data);
       })
       .catch((err) => console.log(err));
   }, []);
+
+  const searchHandler = (search) => {
+    if (!search) {
+      return setFilteredArticles(articles);
+    }
+    let filter = [];
+    filtered_articles.forEach((article) => {
+      if (article.title.includes(search)) {
+        filter.push(article);
+      }
+    });
+    setFilteredArticles(filter);
+  };
 
   const categoryHandler = (category) => {
     let filter = [];
@@ -53,7 +66,10 @@ export default function Blog() {
       <Container fluid="md">
         <Row>
           <Col md={2} className="order-1 order-md-2">
-            <BlogFilter categoryHandler={categoryHandler} />
+            <BlogFilter
+              searchHandler={searchHandler}
+              categoryHandler={categoryHandler}
+            />
           </Col>
           <Col md={10} sm={12} className="order-2 order-md-1">
             <BlogFeed articles={filtered_articles} />
