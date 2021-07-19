@@ -1,5 +1,6 @@
 const Article = require("../models/Article");
 const Project = require("../models/Project");
+const User = require("../models/User");
 const { Router } = require("express");
 const router = Router();
 const fs = require("fs");
@@ -37,6 +38,26 @@ router.get("/projects", async (req, res) => {
       };
     });
     res.send(projects);
+  } catch (error) {
+    res.status(500).json({ message: `${error}` });
+  }
+});
+
+router.get("/users", async (req, res) => {
+  try {
+    const db_users = await User.find();
+    let users = [];
+    db_users.forEach((user, index) => {
+      users[index] = {
+        id: user._id,
+        FIO: user.FIO,
+        description: user.description,
+        image: fs.readFileSync(user.pathImage, "base64"),
+        date: user.date,
+        publications: user.publications,
+      };
+    });
+    res.send(users);
   } catch (error) {
     res.status(500).json({ message: `${error}` });
   }

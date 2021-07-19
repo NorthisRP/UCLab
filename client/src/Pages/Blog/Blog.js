@@ -1,8 +1,8 @@
 import { React, useState, useEffect } from "react";
 import axios from "axios";
-import BlogFeed from "./Blog/BlogFeed";
-import BlogFilter from "./Blog/BlogFilter";
-import styles from "./Blog/blog.module.scss";
+import BlogFeed from "./BlogFeed";
+import BlogFilter from "./BlogFilter";
+import styles from "./blog.module.scss";
 import { Row, Container, Col } from "react-bootstrap";
 
 export default function Blog() {

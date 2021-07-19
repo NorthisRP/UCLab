@@ -41,7 +41,7 @@ export default function CreateArticle() {
       <Card>
         <Card.Header>Создание Статьи</Card.Header>
         <Card.Body>
-          <Form.Group controlId="formGroupTitle" className="px-5">
+          <Form.Group className="px-5">
             <Form.Label>Заголовок статьи</Form.Label>
             <Form.Control
               required
@@ -50,7 +50,7 @@ export default function CreateArticle() {
               onChange={changeHandler}
             />
           </Form.Group>
-          <Form.Group controlId="formGroupDescription">
+          <Form.Group>
             <Form.Label>Краткое описание статьи</Form.Label>
             <Form.Control
               required
@@ -61,7 +61,7 @@ export default function CreateArticle() {
             />
           </Form.Group>
           <Row className="justify-content-around gx-4">
-            <Form.Group controlId="formGroupDate">
+            <Form.Group>
               <Form.Label>Введите дату публикации статьи</Form.Label>
               <Form.Control
                 required
@@ -70,7 +70,7 @@ export default function CreateArticle() {
                 onChange={changeHandler}
               />
             </Form.Group>
-            <Form.Group controlId="formGroupCategory">
+            <Form.Group>
               <Form.Label>Введите категорию статьи</Form.Label>
               <Form.Control name="category" onChange={changeHandler} />
             </Form.Group>

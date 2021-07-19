@@ -127,6 +127,55 @@ router.post(
   }
 );
 
+const upload_user = multer({ storage: storageProj });
+router.post(
+  "/create_user",
+  upload_user.any(),
+  [
+    check("FIO", "Некорректный заголовок").isLength({ min: 4 }),
+    check("description", "Некорректная характеристика сотрудника").isLength({
+      min: 10,
+    }),
+  ],
+  async (req, res) => {
+    try {
+      const errors = validationResult(req);
+      if (!errors.isEmpty()) {
+        return res.status(400).json({
+          errors: errors.array(),
+          message: "Некорректный формат данных",
+        });
+      }
+      const { FIO, description, date, publications } = req.body;
+      const image = req.files[0];
+      if (!image) res.send("Ошибка при загрузке файла");
+
+      // проверим наличие статьи по заголовку в бд
+      const one = await User.findOne({ FIO });
+      if (one) {
+        return res
+          .status(400)
+          .json({ message: "Такой сотрудник уже существует" });
+      }
+      const pathImage = path.join(
+        __dirname,
+        `..\\assets\\images\\${image.originalname}`
+      );
+      const user = new User({
+        FIO,
+        description,
+        pathImage,
+        date,
+        publications,
+      });
+      await user.save();
+      res.status(200).json({ message: "Сотрудник успешно добавлен" });
+    } catch (error) {
+      res.status(500).json({ message: `${error}` });
+    }
+  }
+);
+
 router.post(
   "/delete",
   [
@@ -170,7 +219,8 @@ router.post(
           }
           break;
         case "User":
-          const user = await User.findOne({ title });
+          let FIO = title;
+          const user = await User.findOne({ FIO });
           if (user) {
             fs.unlinkSync(user.pathImage);
             await user.delete();

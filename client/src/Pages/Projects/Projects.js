@@ -1,5 +1,5 @@
 import { React, useState, useEffect } from "react";
-import Project from "./Projects/Project";
+import Project from "./Project";
 import { Row, Container, Col } from "react-bootstrap";
 import axios from "axios";
 

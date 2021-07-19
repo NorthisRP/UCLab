@@ -1,11 +1,11 @@
 import React from "react";
 import { Switch, Route, Redirect } from "react-router-dom";
 
-import About from "./Pages/About";
+import About from "./Pages/About/About";
 import Landing from "./Pages/Landing";
-import Blog from "./Pages/Blog";
-import Projects from "./Pages/Projects";
-import Admin from "./Pages/Admin";
+import Blog from "./Pages/Blog/Blog";
+import Projects from "./Pages/Projects/Projects";
+import Admin from "./Pages/Admin/Admin";
 import Login from "./Pages/Login";
 
 export const useRoutes = (isAuthentificated) => {
